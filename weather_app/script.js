@@ -15,9 +15,17 @@ function weatherStatus(){
     const url = `https://api.weatherapi.com/v1/current.json?key=a27da3ed66e5471f8c090438232606&q=${selectedText}`;  
     hxr.open('GET',url,true);
 
+    const city = document.getElementById('location');
+    const cel = document.getElementById('cel');
+    const far = document.getElementById('far');
+
     hxr.onprogress = function(){
        console.log('On Progress');
+       city.innerText = 'Loading...';
+       cel.innerText = 'Loading...';
+       far.innerText = 'Loading...';
     }
+    hxr.onprogress();
 
     hxr.onload = function(){
         if(this.status === 200){
@@ -25,9 +33,7 @@ function weatherStatus(){
             const objs = JSON.parse(this.responseText);
             const location = objs['location'];
             
-            const city = document.getElementById('location');
-            const cel = document.getElementById('cel');
-            const far = document.getElementById('far');
+            
 
             city.innerText = `${location.name} ${location.region}, ${location.country}`;
             
